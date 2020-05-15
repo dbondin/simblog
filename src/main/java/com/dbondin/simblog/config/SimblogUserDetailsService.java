@@ -1,4 +1,4 @@
-package com.dbondin.simblog.jwt;
+package com.dbondin.simblog.config;
 
 import java.util.ArrayList;
 
@@ -7,21 +7,24 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.dbondin.simblog.service.UserService;
 
-@Service
-public class JwtUserDetailsService implements UserDetailsService {
+@Component
+public class SimblogUserDetailsService implements UserDetailsService {
 
   @Autowired
   private UserService userService;
-  
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    final com.dbondin.simblog.entity.User simblogUser = userService.findByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-    return new User(simblogUser.getUsername(), simblogUser.getPassword(), new ArrayList<>());
-  }
+  @Override
+  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+
+    final com.dbondin.simblog.entity.User simblogUser = userService.findByUsername(username)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
+    return new User(simblogUser.getUsername(), simblogUser.getPassword(), simblogUser.isEnabled(), true, true, true,
+        new ArrayList<>());
+  };
+
 }

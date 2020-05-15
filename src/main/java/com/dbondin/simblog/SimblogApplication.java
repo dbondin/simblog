@@ -4,8 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.dbondin.simblog.jwt.JwtTokenUtil;
-
 @SpringBootApplication
 public class SimblogApplication {
 

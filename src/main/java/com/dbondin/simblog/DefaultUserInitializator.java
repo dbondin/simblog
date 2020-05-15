@@ -6,9 +6,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.dbondin.simblog.configuration.SimblogConfiguration;
 import com.dbondin.simblog.entity.User;
 import com.dbondin.simblog.service.UserService;
+import com.dbondin.simblog.settings.SimblogSettings;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DefaultUserInitializator implements ApplicationListener<ContextRefreshedEvent> {
   
   @Autowired
-  private SimblogConfiguration simblogConfiguration;
+  private SimblogSettings simblogConfiguration;
   
   @Autowired
   private UserService userService;
@@ -33,6 +33,7 @@ public class DefaultUserInitializator implements ApplicationListener<ContextRefr
       final User user = new User();
       user.setUsername(simblogConfiguration.getDefaultUsername());
       user.setPassword(passwordEncoder.encode(simblogConfiguration.getDefaultPassword()));
+      user.setEnabled(true);
       userService.save(user);
     }
   }

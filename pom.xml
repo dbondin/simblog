@@ -19,6 +19,7 @@
     <java.version>1.8</java.version>
     <simblog.swagger.sourceFolder>src/gen/java/main</simblog.swagger.sourceFolder>
     <simblog.swagger.output>${project.build.directory}/generated-sources/swagger</simblog.swagger.output>
+    <simblog.swagger.basePackage>com.dbondin.simblog.swagger</simblog.swagger.basePackage>
   </properties>
 
   <dependencies>
@@ -33,6 +34,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
     <dependency>
@@ -82,13 +88,6 @@
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
       <version>1.6.1</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt</artifactId>
-      <version>0.9.1</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -143,6 +142,8 @@
               <inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
               <language>spring</language>
               <output>${simblog.swagger.output}</output>
+              
+              <!--
               <generateApis>true</generateApis>
               <generateApiTests>false</generateApiTests>
               <generateApiDocumentation>false</generateApiDocumentation>
@@ -152,12 +153,18 @@
               <generateSupportingFiles>false</generateSupportingFiles>
               <configHelp>false</configHelp>
               <addCompileSourceRoot>true</addCompileSourceRoot>
-              <invokerPackage>com.dbondin.simblog.swagger</invokerPackage>
-              <apiPackage>com.dbondin.simblog.swagger.api</apiPackage>
-              <modelPackage>com.dbondin.simblog.swagger.model</modelPackage>
+              -->
+              
+              <basePackage>${simblog.swagger.basePackage}</basePackage>
+              <modelPackage>${simblog.swagger.basePackage}.model</modelPackage>
+              <apiPackage>${simblog.swagger.basePackage}.api</apiPackage>
+              <invokerPackage>${simblog.swagger.basePackage}.invoker</invokerPackage>
+              
               <configOptions>
+                <serializableModel>true</serializableModel>
+                <interfaceOnly>true</interfaceOnly>
                 <java8>true</java8>
-                <defaultInterfaces>true</defaultInterfaces>
+                <defaultInterfaces>false</defaultInterfaces>
                 <library>spring-boot</library>
                 <sourceFolder>${simblog.swagger.sourceFolder}</sourceFolder>
               </configOptions>

@@ -18,4 +18,7 @@ public class User extends AbstractEntity {
   
   @Column(name = "password", length = 255, nullable = false, unique = false)
   private String password;
+  
+  @Column(name = "enabled", nullable = false, unique = false)
+  private boolean enabled;
 }

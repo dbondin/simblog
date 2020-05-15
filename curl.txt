@@ -1,8 +1,16 @@
+curl -i \
+  -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Cookie: JSESSIONID=D2DB3A66E7584F01A1E40D8F9B9DFD4A' \
+  http://localhost:8080/v1/user
+
+curl -i \
+  -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Cookie: JSESSIONID=D2DB3A66E7584F01A1E40D8F9B9DFD4A' \
+  http://localhost:8080/v1/user/1
+
 curl -i --request POST \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"admin"}' \
-  http://localhost:8080/authenticate
-
-function curl_get() {
-  curl -i -H "Authorization: Bearer $1" http://localhost:8080/index.html
-}
+  -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
+  -H 'Cookie: JSESSIONID=D2DB3A66E7584F01A1E40D8F9B9DFD4A' \
+  -d '{"username":"user2","password":"11111"}' \
+  http://localhost:8080/v1/user

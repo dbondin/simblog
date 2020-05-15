@@ -1,17 +1,14 @@
-package com.dbondin.simblog.configuration;
-
-import javax.validation.constraints.NotNull;
+package com.dbondin.simblog.settings;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.annotation.Validated;
 
 import lombok.Data;
 
 @Configuration
 @ConfigurationProperties(prefix = "simblog")
 @Data
-public class SimblogConfiguration {
+public class SimblogSettings {
 
   @Data
   public static final class Jwt {

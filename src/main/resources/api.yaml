@@ -1,51 +1,102 @@
 swagger: 2
 info:
-  title: Echo API
-  description: Simple Rest Echo
+  title: Simblog API
+  description: Simple blog API
   version: "1.0.0"
-host: "localhost:8002"
+host: "localhost:8080"
 schemes:
   - http
 basePath: /v1
 produces:
   - application/json
 paths:
-  /echo:
+  /user:
     get:
-      description: "Returns the 'message' to the caller"
-      operationId: "echo"
-      parameters:
-        #- name: X-header-param
-        - name: headerParam
-          in: header
-          type: string
-          required: false
-        - name: message
-          in: query
-          type: string
-          required: true
+      description: "Returns list of all users"
+      operationId: "getUsers"
       responses:
-        200:
-          description: "Success"
-          schema:
-            $ref: EchoResponse
         default:
-          description: "Error"
           schema:
-            $ref: Error
+            $ref: GetUsersResponse
+    post:
+      description: "Add user"
+      operationId: "addUser"
+      parameters:
+        - name: addUserRequest
+          in: body
+          required: true
+          schema:
+            $ref: AddUserRequest
+      responses:
+        default:
+          schema:
+            $ref: AddUserResponse
+  /user/{id}:
+    get:
+      description: "Returns user by id"
+      operationId: "getUser"
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          format: int64
+          required: false
+      responses:
+        default:
+          schema:
+            $ref: GetUserResponse
 definitions:
-  EchoResponse:
+  User:
     required:
-      - message
+      - id
+      - username
+      - enabled
     properties:
-      message:
-        type: string
-  Error:
-    properties:
-      code:
+      id:
         type: integer
-        format: int32
-      message:
+        format: int64
+      username:
         type: string
-      fields:
+      enabled:
+        type: boolean
+  GenericResponse:
+    required:
+      - status
+    properties:
+      status:
+        type: boolean
+  GetUsersResponse:
+    allOf:
+      - $ref: GenericResponse
+      - type: object
+        required:
+          - status
+        properties:
+          users:
+            type: array
+            items:
+              $ref: User
+  GetUserResponse:
+    allOf:
+      - $ref: GenericResponse
+      - type: object
+        properties:
+          user:
+            $ref: User
+  AddUserRequest:
+    required:
+      - username
+      - password
+    properties:
+      username:
         type: string
+      password:
+        type: string
+  AddUserResponse:
+    allOf:
+      - $ref: GenericResponse
+      - type: object
+        properties:
+          user:
+            $ref: User
+            
