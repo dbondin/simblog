@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dbondin.simblog.entity.User;
+import com.dbondin.simblog.entity.UserRole;
 import com.dbondin.simblog.repository.UserRepository;
 
 @Service
@@ -56,6 +57,7 @@ public class UserServiceImpl implements UserService {
     user.setUsername(username);
     user.setPassword(passwordEncoder.encode(password));
     user.setEnabled(true);
+    user.getRoles().add(UserRole.USER);
     return userRepository.save(user);
   }
 }

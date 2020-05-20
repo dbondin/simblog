@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.dbondin.simblog.entity.User;
+import com.dbondin.simblog.entity.UserRole;
 import com.dbondin.simblog.service.UserService;
 import com.dbondin.simblog.settings.SimblogSettings;
 
@@ -34,6 +35,9 @@ public class DefaultUserInitializator implements ApplicationListener<ContextRefr
       user.setUsername(simblogConfiguration.getDefaultUsername());
       user.setPassword(passwordEncoder.encode(simblogConfiguration.getDefaultPassword()));
       user.setEnabled(true);
+      user.getRoles().add(UserRole.ADMIN);
+      user.getRoles().add(UserRole.MODERATOR);
+      user.getRoles().add(UserRole.USER);
       userService.save(user);
     }
   }

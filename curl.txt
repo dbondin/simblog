@@ -1,16 +1,14 @@
-curl -i \
-  -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
-  -H 'Cookie: JSESSIONID=D2DB3A66E7584F01A1E40D8F9B9DFD4A' \
+curl -i --request GET \
+  -H "Cookie: JSESSIONID=F6403C99D6538C5C69388663AC22D472" \
   http://localhost:8080/v1/user
 
-curl -i \
-  -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
-  -H 'Cookie: JSESSIONID=D2DB3A66E7584F01A1E40D8F9B9DFD4A' \
+  curl -i --request GET \
+  -H "Cookie: JSESSIONID=F6403C99D6538C5C69388663AC22D472" \
   http://localhost:8080/v1/user/1
 
 curl -i --request POST \
   -H "Content-Type: application/json" \
-  -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
-  -H 'Cookie: JSESSIONID=D2DB3A66E7584F01A1E40D8F9B9DFD4A' \
+  -H "Cookie: JSESSIONID=F6403C99D6538C5C69388663AC22D472" \
   -d '{"username":"user2","password":"11111"}' \
   http://localhost:8080/v1/user
+  
